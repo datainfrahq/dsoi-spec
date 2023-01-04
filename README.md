@@ -11,3 +11,27 @@
 
 - DSOI covers most common deployments patterns in order to deploy and maintain heterogenous kubernetes clusters.
 
+## Principles
+
+- Seperation of Concerns
+
+> A clean consise seperation between 
+> 1. An application, K8s Infra and cloud components.
+> 2. Storage, Network and Compute
+> 3. Configuration Management and Reconcilation of configuration
+
+- Building Abstractions
+
+> An Abstraction is a purposeful suppression, incapsulating each concern.
+> 1. Control Plane and Data Plane
+> 2. One CRD per controller
+> 3. Hetrogenous configurations
+
+- Design Interface
+
+> An interface are methods for communication between incapsulated abstractions.
+> 1. K8s Client and Application
+> 2. External components ie metadata, deepstroage, zookeeper etc.
+> 3. Metrics collection
+
+- Define Contracts
