@@ -1,0 +1,11 @@
+# TERMINOLOGY FOR  BASIC INSTALL OF DSOI-SPEC
+
+Name | Description | Example | Scope | Mapping   |
+---  | ---         | ---     | ---   | --- |
+```Cluster``` |  A cluster consists of different types of nodes |  Apache Druid, Presto | Singular Entity | - 
+```Node``` | A cluster can have multiple nodes of the same ```nodeType``` or different ```nodeType``` | Druid Cluster consists of multiple druid broker , A Presto Cluster consists of single coordinator | Singular Entity | ```map[string]NodeSpec``` ie one to many
+```NodeType``` | A nodeType defines the type of the node | ```DruidBrokerAz1``` has nodeType ```broker```, and ```PrestoWorkerAz2``` has ```nodeType``` worker | Node Scoped | one to one ie each node has a nodeType
+```NodeK8sConfigGroups``` | A node k8s config group consists of k8s specific configuration. Each Node is mapped to a node config group | ```DruidBrokerAz1``` is mapped to ```high-mem``` node config group and ```DruidBrokerAz2``` is mapped to ```low-mem``` node config group | Node Scope |  ```map[string]nodeK8sConfigGroupSpec``` ie Mapping of node config group to a node is one to many.
+```AppConfigGroups``` | An appConfigGroup consists of app specific configuration | ```runtime.properties```, ```log4j.xml``` | Node and Cluster Scoped |```map[string]appK8sConfigGroupSpec``` Mapping of an app group to node is one to many.
+```Order``` | An order defines the order of execution of installation and upgrade for a ```nodeType``` | Deploy druid nodes in order of broker > controller > historlcals > coordinator and router | Cluster | one to one for each nodeType |
+```External``` | External consists of configurations of external dependency  | zookeeper, metadata stores, deepstroage | Cluster |```map[string]externalSpec``` ie one externalSpec for one cluster |
