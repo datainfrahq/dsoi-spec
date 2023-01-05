@@ -15,3 +15,6 @@
 
 - [Design Principles](PRINCIPLES.md) 
 
+### Note
+- Apache®, Apache Druid, Druid® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
+- Presto, Presto logo are registered trademarks of The Linux Foundation & Presto Foundation.
