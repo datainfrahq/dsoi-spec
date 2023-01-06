@@ -1,10 +1,10 @@
 # Cluster Installation 
 
-- Group: dsoi.ballastdata.com
-- Version: v1beta1
-- Kind: {{ app }}Cluster 
+- ```Group: dsoi.ballastdata.com```
+- ```Version: v1beta1```
+- ```Kind: {{ app }}Cluster```
 
-- {{ app}}Cluster Resource defines a spec which based on the [principles](../../../PRINCIPLES.md) defined.
+- ```{{ app}}Cluster``` Resource defines a spec which based on the [principles](../../../PRINCIPLES.md) defined.
 - Refer to [terminology](../TERMINOLOGY.md).
 
 ## Specification
