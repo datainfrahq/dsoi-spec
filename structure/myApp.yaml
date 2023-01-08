@@ -1,0 +1,19 @@
+spec:
+  external:
+    zookeeper:
+      spec:
+        zkRuntimeProperties: "config"
+        zkConnections: "connection"
+    metadata:
+      spec:
+        metaRuntimeProperties: "config"
+        metaConnections: "connection"
+  nodeK8sConfigGroup:
+    hot-high-mem:
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
