@@ -17,3 +17,15 @@ spec:
         limits:
           memory: "128Mi"
           cpu: "500m"
+  nodeAppConfigGroup:
+    common:
+      scope: common
+      commonRuntimeProperties: |-
+        app.config=run
+    broker:
+      scope: broker
+      runtimeProperties: |-
+        app.config=broker
+      overrideProperties: |-
+        app.override=new
+
