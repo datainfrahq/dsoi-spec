@@ -12,6 +12,7 @@ type MyAppSpec struct {
 	External           ExternalSpec                      `yaml:"external"`
 	NodeK8sConfigGroup map[string]NodeK8sConfigGroupSpec `yaml:"nodeK8sConfigGroup"`
 	NodeAppConfigGroup map[string]NodeAppConfigGroupSpec `yaml:"nodeAppConfigGroup"`
+	Nodes              map[string]NodeSpec               `yaml:"nodeSpec"`
 }
 
 // ExternalSpec embeds all the external specs required for the app.
@@ -42,15 +43,23 @@ type MetaConfig struct {
 	MetaConnections       string `yaml:"metaConnections"`
 }
 
+// NodeK8sConfigGroupSpec embeds all the k8s specific configuration.
 type NodeK8sConfigGroupSpec struct {
 	Resources v1.ResourceRequirements `yaml:"resources,omitempty"`
 }
 
 // NodeAppConfigGroupSpec embeds all the app configs specific to each nodetype or common to all nodetypes.
-// Scope can be mapped to common OR name of the nodeType.
 type NodeAppConfigGroupSpec struct {
-	Scope                   string `yaml:"scope"`
 	CommonRuntimeProperties string `yaml:"commonRuntimeProperties"`
 	RuntimeProperties       string `yaml:"runtimeProperties"`
 	OverrideProperties      string `yaml:"overrideProperties"`
+}
+
+// NodeSpec maps configs to a node of a specific nodeType.
+type NodeSpec struct {
+	Kind               string   `yaml:"kind"`
+	NodeType           string   `yaml:"nodeType"`
+	Replicas           int      `yaml:"int"`
+	NodeK8sConfigGroup string   `yaml:"nodeK8sConfigGroup"`
+	NodeAppConfigGroup []string `yaml:"nodeAppConfigGroup"`
 }

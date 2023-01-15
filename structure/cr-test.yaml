@@ -1,4 +1,8 @@
 spec:
+  order:
+  - broker
+  - coordinator
+  - server
   external:
     zookeeper:
       spec:
@@ -19,13 +23,19 @@ spec:
           cpu: "500m"
   nodeAppConfigGroup:
     common:
-      scope: common
       commonRuntimeProperties: |-
         app.config=run
     broker:
-      scope: broker
       runtimeProperties: |-
         app.config=broker
       overrideProperties: |-
         app.override=new
-
+  nodes:
+    broker-hot:
+      kind: Statefulset
+      nodeType: broker
+      replicas: 2
+      nodeK8sConfigGroup: hot-high-mem
+      nodeAppConfigGroup: 
+      - common
+      - broker

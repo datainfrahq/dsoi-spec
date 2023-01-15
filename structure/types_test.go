@@ -8,8 +8,7 @@ import (
 )
 
 func TestSpec(t *testing.T) {
-	yfile, err := ioutil.ReadFile("myApp.yaml")
-
+	yfile, err := ioutil.ReadFile("cr-test.yaml")
 	if err != nil {
 		t.Fatal(err)
 	}
