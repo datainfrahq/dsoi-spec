@@ -12,7 +12,7 @@ type MyAppSpec struct {
 	External           ExternalSpec                      `yaml:"external"`
 	NodeK8sConfigGroup map[string]NodeK8sConfigGroupSpec `yaml:"nodeK8sConfigGroup"`
 	NodeAppConfigGroup map[string]NodeAppConfigGroupSpec `yaml:"nodeAppConfigGroup"`
-	Nodes              map[string]NodeSpec               `yaml:"nodeSpec"`
+	Nodes              map[string][]NodeSpec             `yaml:"nodeSpec"`
 }
 
 // ExternalSpec embeds all the external specs required for the app.
@@ -57,8 +57,8 @@ type NodeAppConfigGroupSpec struct {
 
 // NodeSpec maps configs to a node of a specific nodeType.
 type NodeSpec struct {
+	Name               string   `json:"name"`
 	Kind               string   `yaml:"kind"`
-	NodeType           string   `yaml:"nodeType"`
 	Replicas           int      `yaml:"int"`
 	NodeK8sConfigGroup string   `yaml:"nodeK8sConfigGroup"`
 	NodeAppConfigGroup []string `yaml:"nodeAppConfigGroup"`

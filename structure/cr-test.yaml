@@ -1,8 +1,7 @@
 spec:
   order:
   - broker
-  - coordinator
-  - server
+  - controller
   external:
     zookeeper:
       spec:
@@ -13,7 +12,7 @@ spec:
         metaRuntimeProperties: "config"
         metaConnections: "connection"
   nodeK8sConfigGroup:
-    hot-high-mem:
+    broker-high-mem:
       resources:
         requests:
           memory: "64Mi"
@@ -21,6 +20,22 @@ spec:
         limits:
           memory: "128Mi"
           cpu: "500m"
+    broker-low-mem:
+      resources:
+        requests:
+          memory: "32Mi"
+          cpu: "250m"
+        limits:
+          memory: "32Mi"
+          cpu: "500m"
+    controller-low-mem:
+      resources:
+        requests:
+          memory: "8Mi"
+          cpu: "16m"
+        limits:
+          memory: "8Mi"
+          cpu: "16m"
   nodeAppConfigGroup:
     common:
       commonRuntimeProperties: |-
@@ -29,13 +44,33 @@ spec:
       runtimeProperties: |-
         app.config=broker
       overrideProperties: |-
-        app.override=new
+        app.override=newbroker
+    controller:
+      runtimeProperties: |-
+        app.config=controller
+      overrideProperties: |-
+        app.override=newcontroller
   nodes:
-    broker-hot:
+    broker:
+    - name: broker-highmem
       kind: Statefulset
-      nodeType: broker
       replicas: 2
-      nodeK8sConfigGroup: hot-high-mem
+      nodeK8sConfigGroup: broker-high-mem
       nodeAppConfigGroup: 
       - common
       - broker
+    - name: broker-lowmem
+      kind: Deployment
+      replicas: 1
+      nodeK8sConfigGroup: broker-low-mem
+      nodeAppConfigGroup:
+      - common
+      - broker
+    controller:
+    - name: controller-lowmem
+      kind: Deployment
+      replicas: 1
+      nodeK8sConfigGroup: controller-low-mem
+      nodeAppConfigGroup:
+      - common
+      - controller
