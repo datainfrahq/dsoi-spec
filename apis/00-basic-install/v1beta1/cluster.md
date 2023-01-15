@@ -81,7 +81,7 @@ spec:
             memory: 1Gi
 ```
 
-#### App Config Group
+#### Node App Config Group
 
 - Application specific configurations. The goal is for app developers to add specific configs without learning the k8s specific configs. 
 ```
@@ -89,19 +89,14 @@ kind: MyAppCluster
 metadata:
   name: bigapp
 spec:
-  appConfigGroup:
+  nodeAppConfigGroup:
     myconfigs:
-      scope: common # common to all the nodes
       ....
     node1configs:
-      nodeType: broker
-      scope: node # default to node scope
       ....
       ....
       ....
     node2configs:
-      nodeType: coordinator
-      scope: node 
       ....
       ....
       ....
@@ -119,11 +114,17 @@ spec:
   nodes:
     {{ nodeType }}
     - name: az1-{{ nodeType }}
+      kind: Statefulset
       replicas: 2 # user wants to 2 replicas ( instances ) of brokeraz1 of type broker.
-      nodeK8sConfigGroup: "node1ConfigGroup"
-      appConfigGroup: "app1ConfigGroup"
+      nodeK8sConfigGroup: broker-high-mem
+      nodeAppConfigGroup: 
+      - common
+      - broker
     - name: az2-{{ nodeType }}
-      replicas: 1
-      nodeConfigGroup: "node1ConfigGroup"
-      appConfigGroup: "app2ConfigGroup"
+      kind: Statefulset
+      replicas: 2
+      nodeK8sConfigGroup: broker-high-mem
+      nodeAppConfigGroup: 
+      - common
+      - broker
 ```
