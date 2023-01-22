@@ -6,7 +6,21 @@ type MyAppAutoScaling struct {
 }
 
 type MyAppAutoScalingSpec struct {
-	External ExternalSpec `yaml:"external"`
+	External    ExternalSpec      `yaml:"external"`
+	Autoscaling []AutoscalingSpec `yaml:"autoscaling"`
+}
+
+type AutoscalingSpec struct {
+	Name string                `yaml:"name"`
+	Spec AutoscalingConfigSpec `yaml:"spec"`
+}
+
+type AutoscalingConfigSpec struct {
+	Enable     bool   `yaml:"enable"`
+	MinReplica int    `yaml:"minReplica"`
+	MaxReplica int    `yaml:"maxReplica"`
+	Threshold  int    `yaml:"threshold"`
+	CoolDown   string `yaml:"coolDown"`
 }
 
 type ExternalSpec struct {

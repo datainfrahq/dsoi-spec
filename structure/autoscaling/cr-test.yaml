@@ -5,13 +5,15 @@ spec:
  autoscaling:
    - name: broker-high-mem # maps to your sts/deployment name
      spec:
-       minReplica:
-       maxReplica:
-       threshold:
-       coolDown:
+       enable: true
+       minReplica: 1
+       maxReplica: 5
+       threshold: 60
+       coolDown: 10
    - name: broker-low-mem
      spec:
-       minReplica:
-       maxReplica:
-       threshold:
-       coolDown:
+       enable: false
+       minReplica: 1
+       maxReplica: 5 
+       threshold: 60
+       coolDown: 20
