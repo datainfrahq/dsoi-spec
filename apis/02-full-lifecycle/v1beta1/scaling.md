@@ -22,21 +22,21 @@
 
 ```
 spec:
-  external:
-    spec:
-      url: http://getmymmetrics.com/scalenow
-  {{ nodeType }}:
-     labels:
-        app: broker-high-mem
-     autoscaling:
+    external:
         spec:
-          min:
-          max:
-          threshold:
-          coolDown:
-          .....
+            url: http://getmymmetrics.com/scalenow
+    autoscaling:
+      - name: {{ name of node }}
+        spec:
+            min:
+            max:
+            threshold:
+            coolDown:
+      - name: {{ name of node }}
+        spec:
+            min:
+            max:
+            threshold:
+            coolDown:
+        .....
 ```
-      
-      
-    
-    

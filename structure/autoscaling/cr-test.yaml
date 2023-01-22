@@ -1,0 +1,19 @@
+spec:
+ external:
+   spec:
+     url: http://getmymetrics.com
+ autoscaling:
+   - name: broker-high-mem # maps to your sts/deployment name
+     spec:
+       enable: true
+       minReplica: 1
+       maxReplica: 5
+       threshold: 60
+       coolDown: 10
+   - name: broker-low-mem
+     spec:
+       enable: false
+       minReplica: 1
+       maxReplica: 5 
+       threshold: 60
+       coolDown: 20
