@@ -1,8 +1,6 @@
 # Distributed Systems Operator Interface
 -----------------------------------------------------------------------------------------------
-### Project status: WIP
-
-The project is currently WIP.
+![CI](https://github.com/servicemeshinterface/smi-spec/workflows/CI/badge.svg)
 
 - The Distributed system operator interface (DSOI) is a specification which focuses on building kubernetes operator's for distributed system's specifically big data systems like apache druid, apache pinot, presto.
 
