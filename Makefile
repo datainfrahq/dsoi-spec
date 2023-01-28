@@ -10,7 +10,7 @@ endif
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-.PHONY: all
+.PHONY: test
 test: #
 	cd $(CLUSTER_PATH) && go test . -v
 	cd $(AUTOSCALING_PATH) && go test . -v
