@@ -2,7 +2,7 @@
 -----------------------------------------------------------------------------------------------
 ![CI](https://github.com/servicemeshinterface/smi-spec/workflows/CI/badge.svg)
 
-- The Distributed system operator interface (DSOI) is a specification which focuses on building kubernetes operator's for distributed system's specifically big data systems like apache druid, apache pinot, presto.
+- DSOI Spec is a specification which focuses on defining a standard spec for building CR’s for kubernetes operator’s for distributed systems specifically big data systems such druid, presto, pinot etc.
 
 - The spec defines standard practices and design pattern's which can help build k8s controllers for multiple node types. An example of nodeType can be a druid broker, a presto controller etc.
 
