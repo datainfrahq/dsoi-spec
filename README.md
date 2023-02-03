@@ -18,6 +18,7 @@
 
 - [Motivation](MOTIVATION.md)
 - [Design Principles](PRINCIPLES.md) 
+- [Presentation](https://docs.google.com/presentation/d/15BXVpppKGI5S3nR87C6aS6-WlkuqC9MCITNU6ff-xmY/edit?usp=sharing)
  
 ### Note
 - Apache®, Apache Druid, Druid® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
