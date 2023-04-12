@@ -1,76 +1,42 @@
 spec:
-  order:
-  - broker
-  - controller
-  external:
-    zookeeper:
-      spec:
-        zkRuntimeProperties: "config"
-        zkConnections: "connection"
-    metadata:
-      spec:
-        metaRuntimeProperties: "config"
-        metaConnections: "connection"
-  nodeK8sConfigGroup:
-    broker-high-mem:
-      resources:
-        requests:
-          memory: "64Mi"
-          cpu: "250m"
-        limits:
-          memory: "128Mi"
-          cpu: "500m"
-    broker-low-mem:
-      resources:
-        requests:
-          memory: "32Mi"
-          cpu: "250m"
-        limits:
-          memory: "32Mi"
-          cpu: "500m"
-    controller-low-mem:
-      resources:
-        requests:
-          memory: "8Mi"
-          cpu: "16m"
-        limits:
-          memory: "8Mi"
-          cpu: "16m"
-  nodeAppConfigGroup:
-    common:
-      commonRuntimeProperties: |-
-        app.config=run
-    broker:
-      runtimeProperties: |-
-        app.config=broker
-      overrideProperties: |-
-        app.override=newbroker
-    controller:
-      runtimeProperties: |-
-        app.config=controller
-      overrideProperties: |-
-        app.override=newcontroller
   nodes:
-    broker:
-    - name: broker-highmem
-      kind: Statefulset
-      replicas: 2
-      nodeK8sConfigGroup: broker-high-mem
-      nodeAppConfigGroup: 
-      - common
-      - broker
-    - name: broker-lowmem
+    - name: server
       kind: Deployment
       replicas: 1
-      nodeK8sConfigGroup: broker-low-mem
-      nodeAppConfigGroup:
-      - common
-      - broker
-    controller:
-    - name: controller-lowmem
-      kind: Deployment
-      replicas: 1
-      nodeK8sConfigGroup: controller-low-mem
-      nodeAppConfigGroup:
-      - common
-      - controller
+      nodeType: server
+      k8sConfigGroup: k8s-server
+      myAppConfigGroup: server-config
+  deploymentOrder:
+  - server
+  k8sConfigGroup:
+  - name: k8s-server
+    image: parseable/parseable:v0.3.0
+    service:
+     type: ClusterIP
+     ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8000
+    storageConfig:
+    - name: stage-volume
+      mountPath: "/parseable/staging"
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        storageClassName: "civo-volume"
+        resources:
+          requests:
+            storage: 10Gi
+    - name: data-volume
+      mountPath: "/parseable/data"
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        storageClassName: "civo-volume"
+        resources:
+          requests:
+            storage: 10Gi
+  myAppConfigGroup:
+  - name: server-config
+    data: |-
+      logging=true

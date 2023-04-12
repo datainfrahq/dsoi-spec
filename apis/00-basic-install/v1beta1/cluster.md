@@ -1,6 +1,6 @@
 # Cluster Installation 
 
-- ```Group: dsoi.ballastdata.com```
+- ```Group: dsoi.datainfrahq.io```
 - ```Version: v1beta1```
 - ```Kind: {{ app }}Cluster```
 
@@ -33,14 +33,14 @@ spec:
 
 #### Order
 
-- Distributed applications will have multiple nodes. An order defines in which order to rollout the nodes. User can change the order of N number of nodes. ```OrderForCreateUpdate``` is an array. 
+- Distributed applications will have multiple nodes. An order defines in which order to rollout the nodes. User can change the order of N number of nodes. ```deploymentOrder``` is an array. 
 
 ```
 kind: MyAppCluster
 metadata:
   name: bigapp
 spec:
-  OrderForCreateUpdate:
+  deploymentOrder:
   - node1
   - node2
   - node3
@@ -58,8 +58,8 @@ kind: MyAppCluster
 metadata:
   name: bigapp
 spec:
-  nodeK8sConfigGroup:
-    high-mem:
+  k8sConfigGroup:
+    high-mem-server:
         storageConfigs:
         - name: storage1
             mountPath: "/druid/data/segment"

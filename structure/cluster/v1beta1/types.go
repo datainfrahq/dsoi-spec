@@ -9,16 +9,16 @@ type MyApp struct {
 
 // MyAppSpec embeds all the specs.
 type MyAppSpec struct {
-	External           ExternalSpec                      `yaml:"external"`
-	NodeK8sConfigGroup map[string]NodeK8sConfigGroupSpec `yaml:"nodeK8sConfigGroup"`
-	NodeAppConfigGroup map[string]NodeAppConfigGroupSpec `yaml:"nodeAppConfigGroup"`
-	Nodes              map[string][]NodeSpec             `yaml:"nodeSpec"`
+	DeploymentOrder  []string               `yaml:"deploymentOrder"`
+	External         ExternalSpec           `yaml:"external,omitempty"`
+	K8sConfigGroup   []K8sConfigGroupSpec   `yaml:"k8sConfigGroup"`
+	MyAppConfigGroup []MyAppConfigGroupSpec `yaml:"myAppConfigGroup"`
+	Nodes            []NodeSpec             `yaml:"nodes"`
 }
 
 // ExternalSpec embeds all the external specs required for the app.
 type ExternalSpec struct {
 	Zookeeper ZookeeperSpec `yaml:"zookeeper"`
-	Metadata  MetadataSpec  `yaml:"metadata"`
 }
 
 // ZookeeperSpec embeds all the spec, configuration required.
@@ -32,24 +32,35 @@ type ZkConfig struct {
 	ZkConnections       string `yaml:"zkConnections"`
 }
 
-// MetadataSpec embeds all the spec, configuration required.
-type MetadataSpec struct {
-	Spec MetaConfig `yaml:"spec"`
-}
-
-// MetadataConfig embeds all the spec, configuration required.
-type MetaConfig struct {
-	MetaRuntimeProperties string `yaml:"metaRuntimeProperties"`
-	MetaConnections       string `yaml:"metaConnections"`
-}
-
 // NodeK8sConfigGroupSpec embeds all the k8s specific configuration.
-type NodeK8sConfigGroupSpec struct {
-	Resources v1.ResourceRequirements `yaml:"resources,omitempty"`
+type K8sConfigGroupSpec struct {
+	Name               string            `json:"name"`
+	Volumes            []v1.Volume       `json:"volumes,omitempty"`
+	VolumeMount        []v1.VolumeMount  `json:"volumeMount,omitempty"`
+	Image              string            `json:"image"`
+	ImagePullPolicy    v1.PullPolicy     `json:"imagePullPolicy,omitempty"`
+	ServiceAccountName string            `json:"serviceAccountName,omitempty"`
+	Env                []v1.EnvVar       `json:"env,omitempty"`
+	Tolerations        []v1.Toleration   `json:"tolerations,omitempty"`
+	PodMetadata        Metadata          `json:"podMetadata,omitempty"`
+	StorageConfig      []StorageConfig   `json:"storageConfig,omitempty"`
+	NodeSelector       map[string]string `json:"nodeSelector,omitempty"`
+	Service            *v1.ServiceSpec   `json:"service,omitempty"`
+}
+
+type Metadata struct {
+	Annotations map[string]string `json:"annotations,omitempty"`
+	Labels      map[string]string `json:"labels,omitempty"`
+}
+
+type StorageConfig struct {
+	Name      string                       `json:"name"`
+	MountPath string                       `json:"mountPath"`
+	PvcSpec   v1.PersistentVolumeClaimSpec `json:"spec"`
 }
 
 // NodeAppConfigGroupSpec embeds all the app configs specific to each nodetype or common to all nodetypes.
-type NodeAppConfigGroupSpec struct {
+type MyAppConfigGroupSpec struct {
 	CommonRuntimeProperties string `yaml:"commonRuntimeProperties"`
 	RuntimeProperties       string `yaml:"runtimeProperties"`
 	OverrideProperties      string `yaml:"overrideProperties"`
@@ -57,9 +68,10 @@ type NodeAppConfigGroupSpec struct {
 
 // NodeSpec maps configs to a node of a specific nodeType.
 type NodeSpec struct {
-	Name               string   `json:"name"`
-	Kind               string   `yaml:"kind"`
-	Replicas           int      `yaml:"int"`
-	NodeK8sConfigGroup string   `yaml:"nodeK8sConfigGroup"`
-	NodeAppConfigGroup []string `yaml:"nodeAppConfigGroup"`
+	Name                 string `json:"name"`
+	Kind                 string `json:"kind"`
+	NodeType             string `json:"nodeType"`
+	Replicas             int    `json:"replicas"`
+	K8sConfigGroup       string `json:"k8sConfigGroup"`
+	MyAppConfigGroupName string `json:"myAppConfigGroup"`
 }
