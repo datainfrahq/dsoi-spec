@@ -1,4 +1,4 @@
-![CI](https://github.com/datainfrahq/smi-spec/workflows/CI/badge.svg) [![Slack](https://img.shields.io/badge/slack-brightgreen.svg?logo=slack&label=Community&style=flat&color=%2373DC8C&)](https://launchpass.com/datainfra-workspace) 
+![CI](https://github.com/datainfrahq/dsoi-spec/workflows/CI/badge.svg) [![Slack](https://img.shields.io/badge/slack-brightgreen.svg?logo=slack&label=Community&style=flat&color=%2373DC8C&)](https://launchpass.com/datainfra-workspace) 
 
 # Distributed Systems Operator Interface
 -----------------------------------------------------------------------------------------------
