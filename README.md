@@ -1,18 +1,9 @@
+![CI](https://github.com/datainfrahq/smi-spec/workflows/CI/badge.svg) [![Slack](https://img.shields.io/badge/slack-brightgreen.svg?logo=slack&label=Community&style=flat&color=%2373DC8C&)](https://launchpass.com/datainfra-workspace) 
+
 # Distributed Systems Operator Interface
 -----------------------------------------------------------------------------------------------
-![CI](https://github.com/servicemeshinterface/smi-spec/workflows/CI/badge.svg)
 
-- DSOI Spec is a specification which focuses on defining a standard spec for building CR’s for kubernetes operator’s for distributed systems specifically big data systems such druid, presto, pinot etc.
-
-- The spec defines standard practices and design pattern's which can help build k8s controllers for multiple node types. An example of nodeType can be a druid broker, a presto controller etc.
-
-- DSOI covers most common deployments patterns in order to deploy and maintain heterogenous distributed system clusters.
-
-- The DSOI spec follows standard kubernetes controller practices and adheres to the k8s API specification.
-
-- The DSOI spec is not static and expects to evolve. Not bound to any specific application.
-
-- DSOI spec consists of kubernetes native CRD's and spec's. The goal is not to re-introduce any new concepts but to encapsulate existing spec in a single structured spec.
+The Distributed System Operator Interface is a specification for building kubernetes operator's for distributed systems. The spec defines standard practices which can help define custom resources. The spec defines most common deployments patterns in order to deploy and maintain heterogenous distributed system clusters. The DSOI spec is not static and expects to evolve. Not bound to any specific application. DSOI spec consists of kubernetes native CRD's and spec's. The goal is not to re-introduce any new concepts but to encapsulate existing spec in a single structured spec.
 
 ## Contents
 
