@@ -17,7 +17,7 @@ The Distributed System Operator Interface is a specification for building kubern
 
 Operators built using the DSOI Spec
 - [Parseable Kubernetes Operator](https://github.com/parseablehq/operator)
-- [Pinot Kubernetes Operator](https://github.com/datainfrahq/operator)
+- [Pinot Kubernetes Operator](https://github.com/datainfrahq/pinot-operator)
 
 ## Contents
 
