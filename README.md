@@ -1,6 +1,10 @@
-<h1 align="center">
-Distributed System Operator Interface
-</h1>
+<h2 align="center">
+  <picture>
+    <img alt="DataInfra Logo" src="https://raw.githubusercontent.com/datainfrahq/.github/main/images/logo.svg">
+  </picture>
+  <br>
+  Distributed System Operator Interface
+</h2>
 
 
 <div align="center">
