@@ -15,6 +15,10 @@
 
 The Distributed System Operator Interface is a specification for building kubernetes operator's for distributed systems. The spec defines standard practices which can help define custom resources. The DSOI spec is not static and expects to evolve. Not bound to any specific application. DSOI spec consists of kubernetes native CRD's and spec's. The goal is not to re-introduce any new concepts but to encapsulate existing spec in a single structured spec.
 
+Operators built using the DSOI Spec
+- [Parseable Kubernetes Operator](https://github.com/parseablehq/operator)
+- [Pinot Kubernetes Operator](https://github.com/datainfrahq/operator)
+
 ## Contents
 
 - [Motivation](MOTIVATION.md)
