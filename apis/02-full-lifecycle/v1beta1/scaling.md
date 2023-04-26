@@ -1,24 +1,26 @@
-## Auto Scaling Spec
+# Auto Scaling Spec
 
-- ```Group: dsoi.ballastdata.com```
-- ```Version: v1beta1```
-- ```Kind: {{ app }}scaling```
+Group: dsoi.datainfra.io
 
-- Autoscaling of any cluster node can be categorized into
+Version: v1beta1
 
-1. Horizontal Scaling
-2. Vertically Scaling
+Kind: {{ app }}scaling
 
-- Each node has unique set of scaling requirements when it comes to scaling
+Autoscaling of any cluster node can be categorized into:
 
-1. Compute
-2. Memory
-3. Storage
+- Horizontal Scaling
+- Vertically Scaling
 
-- When Scaling vertically, each app depends on certain metrics. In order to get those metrics
-  operator can make external API calls. 
+Each node has a unique set of scaling requirements when it comes to scaling:
 
-- The operator shall consist of a seperate CR controller. Adding auto scaling logic in a single controller which performs installations and upgrade can result in delays and race conditions as fetching metrics and computing a decision is costly for each nodeType with N nodes every N seconds.
+- Compute
+- Memory
+- Storage
+
+When scaling vertically, each app depends on certain metrics. In order to get those metrics, the operator can make external API calls.
+
+The operator shall consist of a separate CR controller. Adding auto scaling logic in a single controller which performs installations and upgrades can result in delays and race conditions as fetching metrics and computing a decision is costly for each nodeType with N nodes every N seconds.
+
 
 ```
 spec:
