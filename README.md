@@ -1,9 +1,10 @@
 <h2 align="center">
   <picture>
-    <img alt="DataInfra Logo" src="https://raw.githubusercontent.com/datainfrahq/.github/main/images/logo.svg">
+    <img alt="DataInfra Logo" src="https://raw.githubusercontent.com/datainfrahq/.github/main/images/logo.svg" width="500" height="100">
   </picture>
   <br>
-  Distributed System Operator Interface
+  Distributed Systems Operator Interface
+  </br>
 </h2>
 
 
@@ -13,11 +14,12 @@
 
 </div>
 
-The Distributed System Operator Interface is a specification for building kubernetes operator's for distributed systems. The spec defines standard practices which can help define custom resources. The DSOI spec is not static and expects to evolve. Not bound to any specific application. DSOI spec consists of kubernetes native CRD's and spec's. The goal is not to re-introduce any new concepts but to encapsulate existing spec in a single structured spec.
+The Distributed System Operator Interface (DSOI) specification is a set of best practices for building Kubernetes operators for distributed systems. The spec defines standard practices that can help define custom resources. It consists of Kubernetes-native CRDs and specs and is not bound to any specific application.
+
 
 Operators built using the DSOI Spec
 - [Parseable Kubernetes Operator](https://github.com/parseablehq/operator)
-- [Pinot Kubernetes Operator](https://github.com/datainfrahq/pinot-operator)
+- [Control Plane For Apache Pinot](https://github.com/datainfrahq/pinot-operator)
 
 ## Contents
 
