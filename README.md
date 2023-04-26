@@ -59,6 +59,13 @@ The Distributed System Operator Interface (DSOI) is designed to adhere to a set 
 - **Eventual Consistency**: Controllers should be eventually consistent, built on observed state rather than state machines.
 
 By following these principles, DSOI ensures a **consistent**, **scalable**, and **maintainable** architecture for building Kubernetes operators for distributed systems.
+
+## :stethoscope: Support
+
+- For questions and feedback please feel free to reach out to us on [Slack ↗︎](https://launchpass.com/datainfra-workspace).
+- For bugs, please create issue on [GitHub ↗︎](https://github.com/datainfrahq/dsoi-spec/issues).
+- For commercial support and consultation, please reach out to us at [`hi@datainfra.io` ↗︎](mailto:hi@datainfra.io).
+
  
 ## :notebook_with_decorative_cover: NOTE
 
