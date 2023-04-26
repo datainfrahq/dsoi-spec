@@ -1,22 +1,32 @@
-# Cluster Installation 
+## 📦 🚀  Cluster Installation
 
-- ```Group: dsoi.datainfrahq.io```
-- ```Version: v1beta1```
-- ```Kind: {{ app }}Cluster```
+### Defining CRD
 
-- ```{{ app}}Cluster``` Resource defines a spec which based on the [principles](../../../PRINCIPLES.md) defined.
-- Refer to [terminology](../TERMINOLOGY.md).
+To define your CRD, follow these steps:
 
-## Specification
+-  Define the Group, Version, and Kind for your CRD.
+   - Group: `dsoi.datainfrahq.io`
+   - Version: `v1beta1`
+   - Kind: `{{ app }}`
+
+-  Example:
+```
+apiVersion: datainfra.io/v1beta1
+kind: Pinot
+metadata:
+  name: pinot
+```
+
+## 📄 Specification
 
 #### External
 
-- An app can rely on an external database, or any third party app.
+- An app can rely on an external database, or any third party dependency.
 
 ```
-kind: MyAppCluster
+kind: MyApp
 metadata:
-  name: bigapp
+  name: myapp
 spec:
   external:
     zookeeper:
@@ -31,12 +41,27 @@ spec:
        ....
 ```
 
-#### Order
+- Example:
+```
+apiVersion: datainfra.io/v1beta1
+kind: Pinot
+metadata:
+  name: pinot-basic
+spec:
+  external:
+    zookeeper:
+     spec:
+       zkAddress: zk-pinot-zookeeper-headless.pinot:2181
+```
 
-- Distributed applications will have multiple nodes. An order defines in which order to rollout the nodes. User can change the order of N number of nodes. ```deploymentOrder``` is an array. 
+
+#### Deployment Order
+
+- Distributed applications often have multiple nodes, and the order in which these nodes are rolled out can be important. 
+- This can be achieved using the deploymentOrder array.
 
 ```
-kind: MyAppCluster
+kind: MyApp
 metadata:
   name: bigapp
 spec:
@@ -44,89 +69,144 @@ spec:
   - node1
   - node2
   - node3
-  ...
-  ...
 
 ```
+- Example
 
-#### Node K8s Config Group
+```
+apiVersion: datainfra.io/v1beta1
+kind: Pinot
+metadata:
+  name: pinot-basic
+spec:
+  deploymentOrder:
+    - controller
+    - broker
+    - server
+    - minion
+```
+#### K8s Config Group
 
 - K8s specific configurations as defined by the K8s API. The goal is not reinvent any k8s spec. 
 
+- Example
 ```
-kind: MyAppCluster
-metadata:
-  name: bigapp
-spec:
-  k8sConfigGroup:
-    high-mem-server:
-        storageConfigs:
-        - name: storage1
-            mountPath: "/druid/data/segment"
-            volumeClaimTemplates:
-            - metadata:
-                name: data-volume
-            spec:
-                accessModes:
-                - ReadWriteOnce
-                resources:
-                requests:
-                    storage: 2Gi
-                storageClassName: gp2
-        serviceAccountName: "high-mem"
+k8sConfig:
+
+  - name: controller
+    serviceAccountName: "default"
+    port:
+    - name: controller 
+      containerPort: 9000
+      protocol: TCP
+    service:
+      type: LoadBalancer
+      ports:
+      - protocol: TCP
+        port: 9000
+        targetPort: 9000
+    livenessProbe:
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      httpGet:
+        path: "/health"
+        port: 9000
+    readinessProbe:
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      httpGet:
+        path: "/health"
+        port: 9000
+    env:
+    - name: LOG4J_CONSOLE_LEVEL
+      value: info
+    image: apachepinot/pinot:latest
+    storageConfig:
+    - name: pinotcontroller
+      mountPath: "/var/pinot/controller/data"
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        storageClassName: ${STORAGE_CLASS_NAME}
         resources:
-          limits:
-            cpu: "2"
-            memory: 3Gi
           requests:
-            cpu: "1"
-            memory: 1Gi
+            storage: 1Gi
 ```
 
-#### Node App Config Group
+#### App NodeConfig Group
 
 - Application specific configurations. The goal is for app developers to add specific configs without learning the k8s specific configs. 
+
 ```
 kind: MyAppCluster
 metadata:
   name: bigapp
 spec:
-  nodeAppConfigGroup:
-    myconfigs:
-      ....
-    node1configs:
-      ....
-      ....
-      ....
-    node2configs:
-      ....
-      ....
-      ....
+  appConfigGroup:
+  - name: nodename
+    configs-one:
+    ....
+    configs-two:
+    ....
+    configs-three:
+    ....
+
 ```
 
-#### Map config group to nodes
+- Example:
+
+```
+pinotNodeConfig:
+  - name: controller
+    java_opts: "-XX:ActiveProcessorCount=2 -Xms256M -Xmx1G -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+                -Xlog:gc*:file=/opt/pinot/gc-pinot-controller.log -Dlog4j2.configurationFile=/opt/pinot/conf/log4j2.xml
+                -Dplugins.dir=/opt/pinot/plugins"
+    data: |-
+        controller.port=9000
+        controller.data.dir=/var/pinot/controller/data 
+        pinot.set.instance.id.to.hostname=true
+        controller.task.scheduler.enabled=true
+```
+
+#### Map K8s Config Group and App Config group to Each NodeType
 
 - After defining the configs, map which config is needed for which ```nodeType```.
+- Example
 
 ```
-kind: MyAppCluster
+apiVersion: datainfra.io/v1beta1
+kind: Pinot
 metadata:
-  name: bigapp
+  name: pinot-basic
 spec:
+
   nodes:
-    {{ nodeType }}
-    - name: az1-{{ nodeType }}
+
+    - name: pinot-controller
       kind: Statefulset
-      replicas: 2 # user wants to 2 replicas ( instances ) of brokeraz1 of type broker.
-      nodeK8sConfigGroup: broker-high-mem
-      nodeAppConfigGroup: 
-      - common
-      - broker
-    - name: az2-{{ nodeType }}
+      replicas: 1
+      nodeType: controller
+      k8sConfig: controller
+      pinotNodeConfig: controller
+    
+    - name: pinot-broker
       kind: Statefulset
-      replicas: 2
-      nodeK8sConfigGroup: broker-high-mem
-      nodeAppConfigGroup: 
-      - common
-      - broker
+      replicas: 1
+      nodeType: broker
+      k8sConfig: broker
+      pinotNodeConfig: broker
+
+    - name: pinot-server
+      kind: Statefulset
+      replicas: 1
+      nodeType: server
+      k8sConfig: server
+      pinotNodeConfig: server
+    
+    - name: pinot-minion
+      kind: Statefulset
+      replicas: 1
+      nodeType: minion
+      k8sConfig: minion
+      pinotNodeConfig: minion
 ```
