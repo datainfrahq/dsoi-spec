@@ -44,6 +44,21 @@ Adhering to the DSOI spec provides a number of benefits for developers and opera
 - **Consistency**: By adhering to the spec, developers can create consistent and reliable operators that are easy to maintain and evolve over time.
 - **Interoperability**: The spec promotes interoperability across different operators and can be adapted to a wide range of use cases.
 
+## 🚩 Principles
+
+The Distributed System Operator Interface (DSOI) is designed to adhere to a set of guiding principles that promote best practices in building Kubernetes operators for distributed systems. These principles include:
+
+- **Separation of Concerns**: Each section of the system should address a distinct concern, such as application, Kubernetes infrastructure, cloud components, storage, network, compute, configuration management, and reconciliation of configuration.
+
+- **Building Abstractions**: Encapsulate each concern in a purposeful suppression, such as control plane and data plane, handling business logic with a separate component (controller), heterogeneous configurations, and designing interfaces.
+
+- **Define Contracts**: Reach agreement between the various components responsible for reconciling desired, original, and current state. The DSOI spec provides a contract between the operator and its resources.
+
+- **One Controller per CRD**: Each CRD should have its own controller for installation, scaling, and application specifications. The controller and application should interact with each other.
+
+- **Eventual Consistency**: Controllers should be eventually consistent, built on observed state rather than state machines.
+
+By following these principles, DSOI ensures a **consistent**, **scalable**, and **maintainable** architecture for building Kubernetes operators for distributed systems.
  
 ## :notebook_with_decorative_cover: NOTE
 
