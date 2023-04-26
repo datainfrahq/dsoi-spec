@@ -5,7 +5,7 @@
 To define your CRD, follow these steps:
 
 -  Define the Group, Version, and Kind for your CRD.
-   - Group: `dsoi.datainfrahq.io`
+   - Group: `dsoi.datainfra.io`
    - Version: `v1beta1`
    - Kind: `{{ app }}`
 
