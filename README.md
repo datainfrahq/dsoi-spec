@@ -52,7 +52,7 @@ The Distributed System Operator Interface (DSOI) is designed to adhere to a set 
 
 - **Building Abstractions**: Encapsulate each concern in a purposeful suppression, such as control plane and data plane, handling business logic with a separate component (controller), heterogeneous configurations, and designing interfaces.
 
-- **Define Contracts**: Reach agreement between the various components responsible for reconciling desired, original, and current state. The DSOI spec provides a contract between the operator and its resources.
+- **Define Contracts**: Reach agreement between the various components responsible for reconciling desired, original, and current state. The DSOI spec defines a contract between the operator and its resources.
 
 - **One Controller per CRD**: Each CRD should have its own controller for installation, scaling, and application specifications. The controller and application should interact with each other.
 
