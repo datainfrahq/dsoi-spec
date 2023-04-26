@@ -21,13 +21,32 @@ Operators built using the DSOI Spec
 - [Parseable Kubernetes Operator](https://github.com/parseablehq/operator)
 - [Control Plane For Apache Pinot](https://github.com/datainfrahq/pinot-operator)
 
-## Contents
+### :earth_americas: Background
 
-- [Motivation](MOTIVATION.md)
-- [Design Principles](PRINCIPLES.md) 
-- [Presentation](https://docs.google.com/presentation/d/15BXVpppKGI5S3nR87C6aS6-WlkuqC9MCITNU6ff-xmY/edit?usp=sharing)
+The most common analytical data pipeline consists of a number of different components, including streaming tools like Kafka and Pulsar, stream processing tools like Flink, OLAP stores for ingestion and querying like Druid, query engines like Presto and Trino, and BI tools like Superset. When running any of these tools, databases, or engines, there are a number of common challenges and requirements that must be addressed, including external dependencies like Zookeeper and metadata stores, multiple node types like brokers and controllers, app-specific configuration like runtime properties and log4j, and Kubernetes-specific configuration like pod template specs.
+
+## :dart: Goals
+
+The goal of the DSOI spec is to define a standard that can be implemented by operators when constructing a CR. By doing so, it is expected to lower the learning curve of understanding CRs for various operators and provide a consistent user experience across different operators.
+
+## :bulb: Purpose
+
+The purpose of the DSOI spec is to provide a structured specification for building Kubernetes operators that can be used with distributed systems. By adhering to this specification, developers can create consistent and reliable operators that are easy to maintain and evolve over time.
+
+## :mag_right: Scope
+
+The DSOI spec is designed to be flexible and extensible. It is not meant to introduce new concepts but rather to encapsulate existing best practices into a single, structured spec. It is expected to evolve over time based on feedback and community contributions.
+
+## :heavy_plus_sign: Benefits
+
+Adhering to the DSOI spec provides a number of benefits for developers and operators of distributed systems, including:
+- **Standardization**: The spec provides a standardized approach for managing configuration between applications, node types, and Kubernetes configurations.
+- **Consistency**: By adhering to the spec, developers can create consistent and reliable operators that are easy to maintain and evolve over time.
+- **Interoperability**: The spec promotes interoperability across different operators and can be adapted to a wide range of use cases.
+
  
-### Note
+## :notebook_with_decorative_cover: NOTE
+
 - Apache®, Apache Druid, Druid® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
 - Apache®, Apache Pinot, Pinot® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
 - Presto, Presto DB are registered trademarks of The Linux Foundation & Presto Foundation.
