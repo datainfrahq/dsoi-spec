@@ -70,5 +70,5 @@ By following these principles, DSOI ensures a **consistent**, **scalable**, and 
 ## :notebook_with_decorative_cover: NOTE
 
 - Apache®, Apache Druid, Druid® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
-- Apache®, Apache Pinot, Pinot® are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
+- Apache™, Apache Pinot™, Pinot™ are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
 - Presto, Presto DB are registered trademarks of The Linux Foundation & Presto Foundation.
